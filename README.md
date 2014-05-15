@@ -1,5 +1,5 @@
-#Quantum Transport Simulation Project
----------------------------------------
+Quantum Transport Simulation Project
+=====================================
 
 ## Main Task
 The main task of this project is to provide a toolset for 1-D 
