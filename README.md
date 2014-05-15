@@ -1,5 +1,5 @@
-Quantum Transport Simulation Project
-=================================
+*Quantum Transport Simulation Project
+---------------------------------------
 
 The main task of this project is to provide a toolset for 1-D 
 quantum transport simulation based on transfer-matrix approach.
