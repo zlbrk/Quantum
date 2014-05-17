@@ -19,9 +19,11 @@ Software implemented with MATLAB technical computing language.
 Программна написана на встроенном языке системы технических расчетов MATLAB.
 
 ## Files / Файлы
-QTJVAC.m -- main script. Structure and VAC configurations presrented here.
+### Scripts / Скрипты
+Quantum Tunneling Junction Volt-Ampere Characteristics (QTJVAC.m)
+>It is the main script. Structure and VAC presets are presrented here. Visualisation of VAC also implemented in this script.
 
-QTJVAC.m -- основной скрипт. Параметры структуры и ВАХ представлены здесь.
+>Основной скрипт. Параметры структуры и ВАХ представлены здесь. Визуализация ВАХ также реализована в этом скрипте.
 
-Проверка
-Еще раз
+Quantum Tunneling Junction Solver Config (QTJSC.m)
+
