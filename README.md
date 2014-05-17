@@ -29,3 +29,8 @@ Software implemented with MATLAB technical computing language.
 >In this script we define how broad should be "conduction band" (range of allowed energy states) and dense shold be energy grid (number of transfer-matrices should be computed).
 
 >В этом скрипте мы определяем насколько широкой должна быть "зона проводимости" (диапазон разрешенных энергетических состояний) и насколько густой должна быть сетка по энергиям (число передаточных матриц, подлежащих вычислению).
+
+**Quantum Tuinneling Junction Constants (QTJC.m)**
+>In this script global variables (Planck constant, reduced Planck constant, Bolzmann constant, charge and mass of the electron, dielectric permittivity of free space, temperature and temperature potential) are defined.
+
+>В этом скрипте определены глобальные переменные (постоянная Планка, приведенная постоянная Планка, постоянная Больцмана, заряд и масса электрона, диэлектрическая проницаемость вакуума, температура и темперетурный коэффициент).
