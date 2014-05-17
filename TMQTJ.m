@@ -1,4 +1,6 @@
 function [R, T] = TMQTJ(E, U, d)
+%% TMQTJ = Transfer-Matrix of the Quantum Tunneling Junction
+% Функция расчета передаточной матрицы
 %% Описание интерфейса
 % E -- полная энергия электрона, эВ
 % U -- кусочно-постоянное представление барьера

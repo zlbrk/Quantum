@@ -1,5 +1,5 @@
 function [ dx, xc ] = MSMG( d, k )
-%% CPBR = Multiple-Scale Mesh Generator
+%% MSMG = Multiple-Scale Mesh Generator
 %% Описание интерфейса
 % xc -- дополненная сопряженная сетка, нм
 % dx -- протяженности слоев, нм
