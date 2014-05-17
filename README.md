@@ -20,12 +20,12 @@ Software implemented with MATLAB technical computing language.
 
 ## Files / Файлы
 ### Scripts / Скрипты
-**Quantum Tunneling Junction Volt-Ampere Characteristics (QTJVAC.m)
+**Quantum Tunneling Junction Volt-Ampere Characteristics (QTJVAC.m)**
 >It is the main script. Structure and VAC presets are presrented here. Visualisation of VAC also implemented in this script.
 
 >Основной скрипт. Параметры структуры и ВАХ представлены здесь. Визуализация ВАХ также реализована в этом скрипте.
 
-**Quantum Tunneling Junction Solver Config (QTJSC.m)
+**Quantum Tunneling Junction Solver Config (QTJSC.m)**
 >In this script we define how broad should be "conduction band" (range of allowed energy states) and dense shold be energy grid (number of transfer-matrices should be computed).
 
 >В этом скрипте мы определяем насколько широкой должна быть "зона проводимости" (диапазон разрешенных энергетических состояний) и насколько густой должна быть сетка по энергиям (число передаточных матриц, подлежащих вычислению).
