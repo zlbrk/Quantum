@@ -22,29 +22,50 @@ d = linspace(dmin, dmax, dpts); % сетка по расстояниям между электродами
 S = 0.6*1e-6*1*1e-6; % площадь взаимного перекрытия плоских электродов
 %% Построение вольт-амперных характеристик двухэлектродной структуры
 
-J = zeros(dpts, dUpts);
+J1 = zeros(dpts, dUpts);
+J2 = zeros(dpts, dUpts);
 
 for i = 1: dpts % строки
     for j = 1: dUpts % столбцы
-        [ dx, xc ] = MSMG( d(i), k );
-        [ U ] = PWBR( U0, dU(j), d(i), xc );
-
-%         l = [3 4 5 6 7 8]; % индексы дополненной сопряженной сетки, соответствующие ямам
-%         [ U ] = PRMT( U, U0, l ); % преобразование потенциального барьера
         
-        J(i, j) = ECDQTJ(dU(j), U, dx); % матрица заполняется по строкам
-        
-        % Вывод значения рассчитанной плотности тока
-        
+        % Вывод параметров решения
         clc;
-        formatJTF = 'Работа выхода: U0=%0.5g\nНапряжение смещения: dU=%0.5g\nРасстояние между электродами: d=%0.5g\nПараметр дискретизации: k=%0.5g\nПлотность тока: %0.5g А/м^2';
-        outJTF = sprintf(formatJTF, U0, dU(j), d(i), k, J(i, j));
-        disp(outJTF);
+        format_wf = 'Работа выхода: U0=%0.5g\n';
+        out_wf = sprintf(format_wf, U0);
+        disp(out_wf);
+        format_bv = 'Напряжение смещения: dU=%0.5g\n';
+        out_bv = sprintf(format_bv, dU(j));
+        disp(out_bv);
+        format_d = 'Расстояние между электродами: d=%0.5g\n';
+        out_d = sprintf(format_d, d(i));
+        disp(out_d);
+        format_k = 'Параметр дискретизации: k=%0.5g\n';
+        out_k = sprintf(format_k, k);
+        disp(out_k);
+        
+        % Генерация сеток и рельефа для прямоугольного барьера
+        [ dx1, xc1 ] = MSMG( d(i), k );
+        [ U1 ] = PWBR( 0.5*U0, dU(j), d(i), xc1 );
+        % Генерация сеток и рельефа для модельного барьера
+        [ dx2, xc2 ] = MSMG( 4*d(i), k+1 );
+        [ U2 ] = SPRG( U0, dU(j), d(i), xc2 );
+        % Расчет плотности тока для прямоугольного барьера
+        J1(i, j) = ECDQTJ(dU(j), U1, dx1); % матрица заполняется по строкам
+        formatJ1 = 'Плотность тока (прямоугольный): %0.5g А/м^2\n';
+        outJ1 = sprintf(formatJ1, J1(i, j));
+        disp(outJ1);
+        % Расчет плотности тока для модельного барьера
+        J2(i, j) = ECDQTJ(dU(j), U2, dx2); % матрица заполняется по строкам
+        formatJ2 = 'Плотность тока (модельный): %0.5g А/м^2';
+        outJ2 = sprintf(formatJ2, J2(i, j));
+        disp(outJ2);
+        
+        
     end
 end
 
 figure
-semilogy(dU, J.*1e-4);
+semilogy(dU, J1.*1e-4, dU, J2.*1e-4);
 xlabel('dU, V','FontSize', 18);
 ylabel('J, A/cm^2','FontSize', 18);
 title('VAC','FontSize', 18);
@@ -52,7 +73,7 @@ grid on;
 set(gca,'FontSize', 18);
 
 figure
-semilogy(dU, J.*S);
+semilogy(dU, J1.*S, dU, J2.*S);
 xlabel('dU, V','FontSize', 18);
 ylabel('I, A','FontSize', 18);
 title('VAC','FontSize', 18);
