@@ -29,6 +29,7 @@ for i = 1: dpts % строки
     for j = 1: dUpts % столбцы
         
         % Вывод параметров решения
+        clc;
         
         format_wf = 'Работа выхода: U0=%0.5g\n';
         out_wf = sprintf(format_wf, U0);
@@ -43,6 +44,16 @@ for i = 1: dpts % строки
         out_k = sprintf(format_k, k);
         disp(out_k);
         
+        if j>1
+            formatJ2 = 'Плотность тока (модельная): %0.5g А/м^2';
+            outJ2 = sprintf(formatJ2, J2(i, j-1));
+            disp(outJ2);
+            
+            formatJ3 = 'Плотность тока (аналитическая): %0.5g А/м^2';
+            outJ3 = sprintf(formatJ3, J3(i, j-1));
+            disp(outJ3);
+        end
+        
 %         % Генерация сеток и рельефа для прямоугольного барьера
 %         [ dx1, xc1 ] = MSMG( d(i), k );
 %         [ U1 ] = PWBR( 0.5*U0, dU(j), d(i), xc1 );
@@ -53,37 +64,34 @@ for i = 1: dpts % строки
 %         disp(outJ1);
 
         % Генерация сеток и рельефа для модельного барьера
-        [ dx2, xc2 ] = MSMG( 4*d(i), k+1 );
+        [ dx2, xc2 ] = MSMG( 7*d(i), k+4 );
         [ U2 ] = SPRG( U0, dU(j), d(i), xc2 );
+        [ h1 ] = PRVF( xc2, U2 );
+        
         % Расчет плотности тока для модельного барьера
         J2(i, j) = ECDQTJ(dU(j), U2, dx2); % матрица заполняется по строкам
-        formatJ2 = 'Плотность тока (модельная): %0.5g А/м^2';
-        outJ2 = sprintf(formatJ2, J2(i, j));
-        disp(outJ2);
         
         % Расчет плотности тока по аналитическому выражению
         J3(i, j) = GeneralizedCurrentDensity(U0, dU(j), d(i)); % матрица заполняется по строкам
-        formatJ3 = 'Плотность тока (аналитическая): %0.5g А/м^2';
-        outJ3 = sprintf(formatJ3, J3(i, j));
-        disp(outJ3);
         
-        
-        clc;
     end
 end
 
+% Для навешивания фонаря
+scale=J2(floor(length(J2)/2))/J3(floor(length(J3)/2));
+
 figure
-semilogy(dU, J2.*1e-4, dU, J3.*1e-4);
+semilogy(dU, J3.*1e-4*scale, dU, J2.*1e-4,'rs');
 xlabel('dU, V','FontSize', 18);
 ylabel('J, A/cm^2','FontSize', 18);
 title('VAC','FontSize', 18);
 grid on;
 set(gca,'FontSize', 18);
 
-figure
-semilogy(dU, J2.*S, dU, J3.*S);
-xlabel('dU, V','FontSize', 18);
-ylabel('I, A','FontSize', 18);
-title('VAC','FontSize', 18);
-grid on;
-set(gca,'FontSize', 18);
+% figure
+% semilogy(dU, J3.*S*scale, dU, J2.*S,'rs');
+% xlabel('dU, V','FontSize', 18);
+% ylabel('I, A','FontSize', 18);
+% title('VAC','FontSize', 18);
+% grid on;
+% set(gca,'FontSize', 18);
